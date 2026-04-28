@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //how to define a variable
-    //1. access modifier: public or private
-    //2. data type: int, float, bool, string
-    //3. variable name: camelCase
-    //4. value: optional
-
     private float playerSpeed;
     private float horizontalInput;
     private float verticalInput;
 
     private float horizontalScreenLimit = 9.5f;
-    private float verticalScreenLimit = 6.5f;
+    //private float verticalScreenLimit = 6.5f;
 
     public GameObject bulletPrefab;
 
     void Start()
     {
         playerSpeed = 6f;
-        //This function is called at the start of the game
         
     }
 
     void Update()
     {
-        //This function is called every frame; 60 frames/second
+
         Movement();
         Shooting();
 
@@ -56,18 +49,13 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
-        //Tries to go too far up
-        if(transform.position.y >= verticalScreenLimit * 0.5f)
-        {
-            transform.position = new Vector3(transform.position.x, Screen.height * 0.5f, 0);
-        }
 
-        //Tries to go too far down
-        if (transform.position.y <= -verticalScreenLimit)
-        {
-            transform.position = new Vector3(transform.position.x, 0, 0);
-        }
+        //Player can't go past the middle of the screen or the bottom
+        float topLimit = 0.5f;
+        float bottomLimit = -3.5f;
 
+        float clampedY = Mathf.Clamp(transform.position.y, bottomLimit, topLimit);
+        transform.position = new Vector3(transform.position.x, clampedY, 0);
 
     }
 
