@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7332881815771690904, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
+      propertyPath: speed2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332881815771690904, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
+      propertyPath: enemyNum
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9151440685214213992, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.30647
@@ -62,27 +70,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6235476519892114842, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
+    - {fileID: 5303003570725216477, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9207418728420716899, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2402543492096375250}
+      addedObject: {fileID: 582665657197054754}
   m_SourcePrefab: {fileID: 100100000, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
 --- !u!1 &3215712208109989648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9207418728420716899, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
   m_PrefabInstance: {fileID: 6010005031443750515}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2402543492096375250
-MonoBehaviour:
+--- !u!61 &582665657197054754
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3215712208109989648}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40ee82c221310346939c40537725991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy2
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.000000059604645, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0000001, y: 2}
+  m_EdgeRadius: 0
