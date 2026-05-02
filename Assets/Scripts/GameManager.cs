@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public AudioClip powerupSound;
     public AudioClip powerdownSound;
+    public AudioClip explosionSound;
 
     public GameObject gameOverScreen;
 
@@ -30,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     public int score;
     private bool gameOver;
-    //public int cloudMove;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
         verticalScreenSize = 6.5f;
         score = 0;
         gameOver = false;
-        //cloudMove = 1;
 
         Instantiate(playerPrefab, transform.position, Quaternion.identity);
         CreateSky();
@@ -73,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     void CreatePowerup()
     {
-        Instantiate(powerupPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize * 0.1f, verticalScreenSize * 0.8f), 0), Quaternion.identity);
+        Instantiate(powerupPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.6f, horizontalScreenSize * 0.6f), Random.Range(-verticalScreenSize * 0.1f, verticalScreenSize * 0.8f), 0), Quaternion.identity);
     }
 
     void CreateSky()
@@ -134,6 +133,9 @@ public class GameManager : MonoBehaviour
             case 2:
                 audioPlayer.GetComponent<AudioSource>().PlayOneShot(powerdownSound);
                 break;
+            case 3:
+                audioPlayer.GetComponent<AudioSource>().PlayOneShot(explosionSound);
+                break;
         }
     }
 
@@ -152,6 +154,5 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         gameOver = true;
         CancelInvoke();
-        //cloudMove = 0;
     }
 }

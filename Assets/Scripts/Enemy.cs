@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
         {
             whatDidIHit.GetComponent<PlayerController>().LoseALife();
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            gameManager.PlaySound(3);
             Destroy(this.gameObject);
         }
         else if (whatDidIHit.tag == "Weapons")
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
             Destroy(whatDidIHit.gameObject);
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             gameManager.AddScore(5);
+            gameManager.PlaySound(3);
             Destroy(this.gameObject);
         }
     }

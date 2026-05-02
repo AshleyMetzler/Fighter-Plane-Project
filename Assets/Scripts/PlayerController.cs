@@ -14,10 +14,17 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
+    public GameObject audioPlayer;
+    public AudioClip shootSound;
+    public AudioClip coinSound;
+    public AudioClip healthSound;
+
     public GameObject bulletPrefab;
     public GameObject explosionPrefab;
     public GameObject thrusterPrefab;
     public GameObject shieldPrefab;
+
+    private bool shieldActive;
 
     void Start()
     {
@@ -26,6 +33,7 @@ public class PlayerController : MonoBehaviour
         lives = 3;
         speed = 5.0f;
         weaponType = 1;
+        shieldActive = false;
         gameManager.ChangeLivesText(lives);
         gameManager.AddScore(0);
 
@@ -40,12 +48,24 @@ public class PlayerController : MonoBehaviour
     }
     public void LoseALife()
     {
-        //Do I have a shield? If yes: do not lose a life, but instead deactivate the shield's visibility If not: lose a life
-        lives--;
-        gameManager.ChangeLivesText(lives);
+
+        if (shieldActive == true)
+        {
+            shieldPrefab.SetActive(false);
+            shieldActive = false;
+            gameManager.ManagePowerupText(0);
+            gameManager.PlaySound(2);
+        }
+        else
+        {
+            lives--;
+            gameManager.ChangeLivesText(lives);
+        }
+
         if (lives == 0)
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            gameManager.PlaySound(3);
             gameManager.GameOver();
             Destroy(this.gameObject);
         }
@@ -86,27 +106,30 @@ public class PlayerController : MonoBehaviour
         gameManager.PlaySound(2);
     }
 
-    //IEnumerator ShieldPowerDown()
-    //{
-        //yield return new WaitForSeconds(3f);
-        //weaponType = 1;
-        //gameManager.ManagePowerupText(0);
-        //gameManager.PlaySound(2);
-    //}
+    IEnumerator ShieldPowerDown()
+    {
+        yield return new WaitForSeconds(5f);
+        shieldPrefab.SetActive(false);
+        shieldActive = false;
+        gameManager.ManagePowerupText(0);
+        gameManager.PlaySound(2);
+    }
 
     private void OnTriggerEnter2D(Collider2D whatDidIHit)
     {
 
         if (whatDidIHit.tag == "Coin")
         {
+            audioPlayer.GetComponent<AudioSource>().PlayOneShot(coinSound);
             Destroy(whatDidIHit.gameObject);
             gameManager.AddScore(1);
         }
 
         else if (whatDidIHit.tag == "Health")
         {
+            audioPlayer.GetComponent<AudioSource>().PlayOneShot(healthSound);
             GainALife();
-            Destroy(whatDidIHit.gameObject);        
+            Destroy(whatDidIHit.gameObject);
         }
         else if (whatDidIHit.tag == "Powerup")
         {
@@ -137,7 +160,15 @@ public class PlayerController : MonoBehaviour
                     //Do I already have a shield?
                     //If yes: do nothing
                     //If not: activate the shield's visibility
-                    gameManager.ManagePowerupText(4);
+
+                    if(shieldActive == false)
+                    {
+                        shieldActive = true;
+                        shieldPrefab.SetActive(true);
+                        StartCoroutine(ShieldPowerDown());
+                        gameManager.ManagePowerupText(4);
+                    }
+
                     break;
             }
         }
@@ -147,7 +178,9 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            switch(weaponType)
+            audioPlayer.GetComponent<AudioSource>().PlayOneShot(shootSound);
+
+            switch (weaponType)
             {
                 case 1:
                     Instantiate(bulletPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
