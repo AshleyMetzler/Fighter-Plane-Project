@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Weapons
   - Coin
+  - Health
+  - Powerup
   layers:
   - Default
   - TransparentFX
@@ -42,6 +44,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Thruster
+    uniqueID: 2522015467
+    locked: 0
+  - name: Shield
+    uniqueID: 1830286145
+    locked: 0
+  - name: Plane
+    uniqueID: 3383125953
     locked: 0
   m_RenderingLayers:
   - Default
