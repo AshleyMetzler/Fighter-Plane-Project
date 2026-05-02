@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         lives = 3;
         speed = 5.0f;
         gameManager.ChangeLivesText(lives);
+        gameManager.AddScore(0);
 
     }
 
@@ -35,8 +36,6 @@ public class PlayerController : MonoBehaviour
     }
     public void LoseALife()
     {
-        //lives = lives - 1;
-        //lives -= 1;
         lives--;
         gameManager.ChangeLivesText(lives);
         if (lives == 0)
@@ -45,6 +44,41 @@ public class PlayerController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void GainALife()
+    {
+        lives++;
+
+        if (lives > 3)
+        {
+            lives--;
+            gameManager.AddScore(1);
+        }
+
+        gameManager.ChangeLivesText(lives);
+        if (lives == 0)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D whatDidIHit)
+    {
+
+        if (whatDidIHit.tag == "Coin")
+        {
+            Destroy(whatDidIHit.gameObject);
+            gameManager.AddScore(1);
+        }
+
+        else if (whatDidIHit.tag == "Health")
+        {
+            GainALife();
+            Destroy(whatDidIHit.gameObject);        
+        }
+    }
+
     void Shooting()
     {
         //if the player presses the SPACE key, create a projectile
@@ -78,11 +112,5 @@ public class PlayerController : MonoBehaviour
         float clampedY = Mathf.Clamp(transform.position.y, bottomLimit, topLimit);
         transform.position = new Vector3(transform.position.x, clampedY, 0);
 
-        //if (transform.position.y <= -verticalScreenSize || transform.position.y > verticalScreenSize)
-        //{
-        //    transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
-        //}
-
     }
-
 }

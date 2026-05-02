@@ -6,8 +6,7 @@ public class Glider : MonoBehaviour
 {
 
     public bool goingUp;
-    public float speed1;
-    public float speed2;
+    public float speed;
     public int enemyNum;
 
     private GameManager gameManager;
@@ -26,11 +25,11 @@ public class Glider : MonoBehaviour
             
             if (goingUp)
             {
-                transform.Translate(Vector3.up * speed1 * Time.deltaTime);
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
             }
             else if (goingUp == false)
             {
-                transform.Translate(Vector3.down * speed1 * Time.deltaTime);
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
             }
         }
 
@@ -39,12 +38,12 @@ public class Glider : MonoBehaviour
             
             if (goingUp)
             {
-                transform.Translate(new Vector3(Random.Range(-30f, 30f), 1f, 0) * speed2 * Time.deltaTime);
+                transform.Translate(new Vector3(Random.Range(-30f, 30f), 1f, 0) * speed * Time.deltaTime);
 
             }
             else if (goingUp == false)
             {
-                transform.Translate(new Vector3(Random.Range(-30f, 30f), -1f, 0) * speed2 * Time.deltaTime);
+                transform.Translate(new Vector3(Random.Range(-30f, 30f), -1f, 0) * speed * Time.deltaTime);
             }
         }
 
